@@ -1,16 +1,23 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 export default function TextForm(props) {
-  const [text, setText] = useState('Enter text here');
+  const [text, setText] = useState('');
 
-  function upperCase() {
+  function handleUpperCase() {
       setText(text.toUpperCase())
+  }
+  function handleLowerCase() {
+    setText(text.toLowerCase())
+  }
+  function handelClear(params) {
+    setText("")
   }
   function onChangedEvent(event) {
    setText(event.target.value)
       
   }
   return (
+    <>
     <div className="container">
        <h1  className=" my-3" >
           {props.heading}
@@ -26,10 +33,26 @@ export default function TextForm(props) {
           onChange={onChangedEvent}
         ></textarea>
       </div>
-      <button className="btn btn-primary" onClick={
-        upperCase
-      }>Convert to Upeer case</button>
-    </div>
+      <button className="btn btn-primary m-2" onClick={handleUpperCase}>Convert to Upper case</button>
+      <button className="btn btn-primary m-2" onClick={handleLowerCase}>Convert to lower case</button>
+      <button className="btn btn-primary m-2" onClick={handelClear}>Clear Text</button>
+      </div>
+
+      <div className="container">
+        <h3>Text Summary</h3>
+        <p>
+          { 
+          text.length === 0 ? 0:text.split(" ").length} Words<br />
+          { text.length === 0?text.length: text.length - text.split(" ").length + 1} Characters Without Space<br />
+          { text.length===0? 0  :text.split(" ").length*0.008} minutes read
+          
+        </p>
+        <h2>Preview</h2>
+        <p>
+          {text}
+        </p>
+      </div>
+      </>
   );
 }
 
